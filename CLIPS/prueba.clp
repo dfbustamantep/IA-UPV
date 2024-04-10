@@ -250,3 +250,24 @@
 (frigorífico interruptor encendido)
 (frigorífico puerta abierta)
 (assert (frigorífico comida estropeada)))
+
+;-----HECHOS
+;Existen 2 tipos de hechos ordenasdos y no ordenados
+
+;En los hechos ordenados importa el orden de los elementos 
+;En los hechos no ordenados cada campo tiene su nombre y valor
+;Para los hechos no ordenados se necesita tener una plantilla por medio de deftemplate
+(deftemplate datos-persona ;nombre de la plantilla
+    (multislot nombre);puede tener varios valores
+    (multislot apellido)
+    (slot edad);solo tendra un valor
+    (slot peso)
+    (slot altura)
+    (multislot presion-arterial)
+)
+(list-deftemplates);listamos el nombre de las plantilla ya definidas
+(ppdeftemplate nombrePlantilla);muestra el contenido de la plantilla
+(undeftemplate nombrePlantilla);elimina la definicion siempre que no hayan hechos en la base de datos que sigan esta plantilla
+
+;ejemplo de como usar hechos desordenados por medio de una plantilla
+;(assert(datos-persona(nombre Samuel)(edad 20)(peso 80)(altura 188)(presion-arterial 80 130)))
