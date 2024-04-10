@@ -59,4 +59,32 @@
 
 
 (deffunction ascendente (?variableMulticampo)
-    (sort ?variableMulticampo))
+    ;(bind ?tamanio (length$ ?variableMulticampo))
+    ;(printout t ?tamanio crlf)
+    
+    ;(loop-for-count (?i 0 tamanio)
+    ;    (loop-for-count (?j 1 tamanio)
+    ;        (if )
+    ;    )
+    ;)
+    ;(bind ?multicampo_ordenado (sort ?variableMulticampo))
+    ;(return ?multicampo_ordenado)
+    
+    (sort > ?variableMulticampo)
+
+)
+;//Metodo burbuja version 1
+;	public void burbuja1(int [] arreglo){
+;		pasadas=0;
+;		for(i=0; i<arreglo.length; i++){
+;			for(j=i+1; j<arreglo.length;j++){
+;				if (arreglo[i]>arreglo[j]){
+;					temporal=arreglo[i];
+;					arreglo[i]=arreglo[j];
+;					arreglo[j]=temporal;
+;				}
+;				pasadas++;
+;			}
+;		}
+;		System.out.println("Termino en "+pasadas+" pasadas");
+;	}
