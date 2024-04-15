@@ -78,7 +78,8 @@
     (default
         (printout t "Variable diferente a 1 y a 2"crlf)
     )
-))
+)
+)
 
 ;OPERADORES 
 ;OPERADORES LOGICOS
@@ -404,4 +405,26 @@
  (bind ?aux (read))
  (modify ?x (alojado ?aux))
  )
- 
+
+ ;PROPIEDADES DE LAS REGLAS
+ ;Se declaran en la parte izquierda de la regla utilizando la plabra clave declare 
+ ;Una regla solo puede tener una sentencia declare y debe aparecer antes del primer elemento condicional
+
+ ;salience PErmite asignarle una prioridad a la regla,la prioridad asignada debe estar en el rango -10000 a 10000 Por defecto la prioridad de una regla es 0
+ ;Si en la agenda hay varias reglas se desencadenara en primer lugar aquella que tenga mayor prioridad
+ (deffacts coche(deposito vacio))
+
+ (defrule llenar-deposito
+    (declare(salience 0))
+    ?h <-(deposito vacio)
+    =>
+    (retract h)
+    (assert (deposito lleno))
+ )
+
+ (defrule iniciar-viaje
+    (declare(salience 10))
+    (deposito vacio)
+    =>
+    (printout t "Me he quedado tirado"crlf)
+ )
