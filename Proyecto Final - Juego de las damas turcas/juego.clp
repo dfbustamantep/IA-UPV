@@ -76,7 +76,8 @@
     (printout t crlf)
     (printout t "De que color va a ser el usuario (blanco/negro):")
     (bind ?colorUsuario (read))
-    (if (= ?colorUsuario blanco)then
+    ;(if (= ?colorUsuario blanco)then
+    (if (eq ?colorUsuario blanco)then
         (bind ?colorCPU negro)
         else
         (bind ?colorCPU blanco)
