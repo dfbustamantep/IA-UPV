@@ -60,11 +60,11 @@
             (if (or (eq ?contenido 1)(eq ?contenido -1)(eq ?contenido 10)(eq ?contenido -10)) then
                 ;(if (eq ?contenido ficha_blanca) then
                 (if (eq ?contenido 1) then
-                    (printout t  "  fb  |")
+                    (printout t  "  fb |")
                 )
 				;(if (eq ?contenido ficha_negra) then
                 (if (eq ?contenido -1) then
-                    (printout t  "  fn  |")
+                    (printout t  "  fn |")
                 )
                 ;(if (eq ?contenido dama_blanca) then
                 (if (eq ?contenido 10) then
@@ -72,7 +72,7 @@
                 )
 				;(if (eq ?contenido dama_negra) then
                 (if (eq ?contenido -10) then
-                    (printout t  " dn |")
+                    (printout t  " dns |")
                 )
 			else
 				(printout t "     |")
@@ -131,7 +131,7 @@
     ;)
     ;(bind ?tamanioTablero (integerp tamanioTablero))
     (if (eq ?*tamanioTablero* 4) then 
-        (bind $?fi (create$ 1 1 1 1  0 0 0 0  0 0 0 0  0 0 0 0  -1 -1 -1 -1))
+        (bind $?fi (create$ 1 1 1 1  0 0 0 0  0 0 0 0  -1 -1 -1 -1))
     else (if (eq ?*tamanioTablero* 5) then 
         (bind $?fi (create$ 1 1 1 1 1  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1 -1 -1 -1 -1))
     else (if (eq ?*tamanioTablero* 6) then 
@@ -139,7 +139,7 @@
     else (if (eq ?*tamanioTablero* 7) then 
         (bind $?fi (create$ 0 0 0 0 0 0 0  1 1 1 1 1 1 1  0 0 0 0 0 0 0  0 0 0 0 0 0 0  0 0 0 0 0 0 0  -1 -1 -1 -1 -1 -1 -1  0 0 0 0 0 0 0))
     else (if (eq ?*tamanioTablero* 8) then 
-        (bind $?fi (create$ 0 0 0 0 0 0 0 0  1 1 1 1 1 1 1 1  0 0 0 0 0 0 0 0  0 0 0 0 0 0 0 0  0 0 0 0 0 0 0 0  0 0 0 0 0 0 0 0  -1 -1 -1 -1 -1 -1 -1 -1  0 0 0 0 0 0 0 0))
+        (bind $?fi (create$ 0 0 0 0 0 0 0 0  1 1 1 1 1 1 1 1  1 1 1 1 1 1 1 1  0 0 0 0 0 0 0 0  0 0 0 0 0 0 0 0  -1 -1 -1 -1 -1 -1 -1 -1  -1 -1 -1 -1 -1 -1 -1 -1  0 0 0 0 0 0 0 0))
         )
     ))))
 
