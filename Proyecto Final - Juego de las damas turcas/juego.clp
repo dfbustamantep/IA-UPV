@@ -1,4 +1,4 @@
-(defglobal ?*turno* = CPU)
+(defglobal ?*turno* = CPU);turno actual
 (defglobal ?*tamanioTablero* = 0)
 ;(defglobal ?*dadoParaInicio* = 0)
 
@@ -14,6 +14,74 @@
 (deffacts inicio "Estado inicial del juego"
 
 )
+
+;------------------------------------------------
+;tablero,ayuda del profesor
+(deffunction generarLineas (?x)
+  (printout t crlf)
+  (printout t "      |")
+  (loop-for-count ?x
+    (printout t "-----|")
+  )
+  (printout t crlf)
+)
+
+(deffunction generarLineas2 (?x)
+  (printout t " ")
+  (loop-for-count ?x
+    (printout t "     |")
+  )
+  (printout t "     |")
+  (printout t crlf)
+)
+
+;Imprimir el estado actual del mapeo
+(deffunction imprimir ($?mapeo)
+    ; posicion vacia 0
+    ; posicion ficha blanca 1
+    ; posicion ficha negra -1
+    ; posicion reina blanca 10
+    ; posicion reina negra -10
+    (printout t crlf)
+    (printout t  crlf)
+    (loop-for-count (?i 0 ?*tamanioTablero*) do
+      (if (= ?i 0) then
+      (printout t "       ")
+      else
+      (printout t "  "?i "   "))
+    )
+    (generarLineas ?*tamanioTablero*)
+    (loop-for-count (?fila 1 ?*tamanioTablero* ) do
+      (generarLineas2 ?*tamanioTablero*)
+      (printout t "   " ?fila "  |" )
+      (loop-for-count (?columna 1 ?*tamanioTablero*) do
+            (bind ?contenido (nth$  (+ (* ?*tamanioTablero* (- ?fila 1)) ?columna) $?mapeo))
+			;(if (or (eq ?contenido ficha_blanca)(eq ?contenido ficha_negra)(eq ?contenido dama_blanca)(eq ?contenido dama_negra)) then
+            (if (or (eq ?contenido 1)(eq ?contenido -1)(eq ?contenido 10)(eq ?contenido -10)) then
+                ;(if (eq ?contenido ficha_blanca) then
+                (if (eq ?contenido 1) then
+                    (printout t  "  fb  |")
+                )
+				;(if (eq ?contenido ficha_negra) then
+                (if (eq ?contenido -1) then
+                    (printout t  "  fn  |")
+                )
+                ;(if (eq ?contenido dama_blanca) then
+                (if (eq ?contenido 10) then
+                    (printout t  " dm |")
+                )
+				;(if (eq ?contenido dama_negra) then
+                (if (eq ?contenido -10) then
+                    (printout t  " dn |")
+                )
+			else
+				(printout t "     |")
+			)
+      )
+      (generarLineas ?*tamanioTablero*)
+    )
+)
+;----------------------------------------------
 
 (deffunction definirTablero() 
     ; posicion vacia 0
@@ -78,7 +146,7 @@
 
     
     (printout t crlf)
-    (printout t "Quién empieza? (CPU/Usuario):" crlf)
+    (printout t "Quien empieza? (CPU/Usuario):" crlf)
     (bind ?*turno* (read))
     (printout t "De que color va a ser el usuario (blanco/negro):")
     (bind ?colorUsuario (read))
@@ -89,8 +157,7 @@
         (bind ?colorCPU blanco)
     )
     (assert(tablero(colorUsuario ?colorUsuario)(colorCPU ?colorCPU)(fichas $?fi)))
-    ;(?*tablero*  create$ ?*tamanioTablero* ?*tamanioTablero*)
-    ;se define la posicion de los peones
+    (imprimir $?fi)
 )
 
 (defrule inicio
@@ -208,6 +275,7 @@
     (printout t "Inserte columna destino: " crlf)
     (bind ?cd (read))
     (printout t "(" ?fo "," ?co ")" "->" "(" ?fd "," ?cd ")" crlf)
+
     (bind $?fi (moverUsuario ?c ?fo ?co ?fd ?cd $?fi))
     (modify ?t (fichas $?fi))
     (bind ?*turno* CPU)
