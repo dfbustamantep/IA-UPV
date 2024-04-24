@@ -160,7 +160,7 @@
     ;aca es donde no entra
     (printout t "antes del condicional CPU" crlf)
     (if (eq ?*turno* CPU) then
-        ;(printout t "dentro del condicional cpu" crlf)
+        (printout t "dentro del condicional cpu" crlf)
         (printout t "turno CPU" crlf)
         (if (eq ?c negro) then
             (printout t "ficha 1" crlf)
@@ -181,36 +181,32 @@
             (printout t "Entrada condicional moverCPU" crlf)
             ; si -1 eq nth ((tamanioTablero*(fo-1))+co) en fichas
             (if (eq -1 (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi)) then
-                (printout t "Entrada condicional if if moverCPU" crlf)
                             ;replace variableMulticampo inicio fin nuevoValor
                             ;nth devuelve el valor en esa posicion
                             ;variables multicampo indices desde 1
-                (printout t (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) crlf)
-                (printout t (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) crlf)
-                
-                (bind $?fi (replace$ $?fi (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi) (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi) 0))
-                (bind $?fi (replace$ $?fi (nth$ (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) $?fi) (nth$ (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) $?fi) -1))
-                
-                ;(bind $?fi (replace$ $?fi (nth$ (+ (* ?*tamanioTablero* ?fo) ?co) $?fi) (nth$ (+ (* ?*tamanioTablero*  ?fo) ?co) $?fi) 0))
-                ;(bind $?fi (replace$ $?fi (nth$ (+ (* ?*tamanioTablero* ?fd) ?cd) $?fi) (nth$ (+ (* ?*tamanioTablero*  ?fd) ?cd) $?fi) -1))
+                    (printout t (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) crlf)
+                    (printout t (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) crlf)
+                (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fo 1)) ?co)(+ (* ?*tamanioTablero* (- ?fo 1)) ?co) 0))
+                (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd)(+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) -1))
+
             else
                 (if (eq -10 (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi)) then
                     (printout t "Entrada condicional if else moverCPU" crlf)
-                    (bind $?fi (replace$ $?fi (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi) (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi) 0))
-                    (bind $?fi (replace$ $?fi (nth$ (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) $?fi) (nth$ (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) $?fi) -10))
+                    (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fo 1)) ?co)(+ (* ?*tamanioTablero* (- ?fo 1)) ?co) 0))
+                    (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd)(+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) -10))
                 )
             )
         else
             (printout t "Entrada condicional else moverCPU" crlf)
             (if (eq 1 (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi)) then
                 (printout t "Entrada condicional else if moverCPU" crlf)
-                (bind $?fi (replace$ $?fi (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi) (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi) 0))
-                (bind $?fi (replace$ $?fi (nth$ (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) $?fi) (nth$ (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) $?fi) 1))
+                (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fo 1)) ?co)   (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) 0))
+                (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd)  (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) 1))
             else
                 (printout t "Entrada condicional else else moverCPU" crlf)
                 (if (eq 10 (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi)) then
-                    (bind $?fi (replace$ $?fi (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi) (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi) 0))
-                    (bind $?fi (replace$ $?fi (nth$ (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) $?fi) (nth$ (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) $?fi) 10))
+                    (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fo 1)) ?co)   (+ (* ?*tamanioTablero* (- ?fo 1)) ?co)  0))
+                    (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd)   (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd)  10))
                 )
             )
         )
@@ -221,11 +217,15 @@
 
 (deffunction moverUsuario (?c ?fo ?co ?fd ?cd $?fi)
     (printout t "(" ?fo "," ?co ")" "->" "(" ?fd "," ?cd ")" crlf)
+    (printout t "antes del condicional Usuario" crlf)
     (if (eq ?*turno* Usuario) then
+        (printout t "dentro del condicional Usuario" crlf)
         (printout t "turno Usuario" crlf)
         (if (eq ?c negro) then
+            (printout t "ficha 1" crlf)
             (bind ?ficha 1)
         else
+            (printout t "ficha -1" crlf)
             (bind ?ficha -1)
         )
 
@@ -233,22 +233,26 @@
         (if (eq ?ficha -1) then
             (printout t "Entrada condicional moverUsuario" crlf)
             (if (eq -1 (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi)) then
-                (bind $?fi (replace$ $?fi (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi) (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi) 0))
-                (bind $?fi (replace$ $?fi (nth$ (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) $?fi) (nth$ (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) $?fi) -1))
+                (printout t "Entrada condicional if if moverUsuario" crlf)
+                (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) 0))
+                (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) -1))
             else
                 (if (eq -10 (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi)) then
-                    (bind $?fi (replace$ $?fi (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi) (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi) 0))
-                    (bind $?fi (replace$ $?fi (nth$ (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) $?fi) (nth$ (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) $?fi) -10))
+                    (printout t "Entrada condicional if else moverUsuario" crlf)
+                    (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) 0))
+                    (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) -10))
                 )
             )
         else
             (if (eq 1 (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi)) then
-                (bind $?fi (replace$ $?fi (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi) (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi) 0))
-                (bind $?fi (replace$ $?fi (nth$ (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) $?fi) (nth$ (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) $?fi) 1))
+                (printout t "Entrada condicional else if moverUsuario" crlf)
+                (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) 0))
+                (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) 1))
             else
                 (if (eq 10 (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi)) then
-                    (bind $?fi (replace$ $?fi (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi) (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi) 0))
-                    (bind $?fi (replace$ $?fi (nth$ (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) $?fi) (nth$ (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) $?fi) 10))
+                    (printout t "Entrada condicional else else moverUsuario" crlf)
+                    (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) 0))
+                    (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) 10))
                 )
             )
         )
