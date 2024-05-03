@@ -1,8 +1,9 @@
 
 ;---------------------VARIABLES GLOBALES--------------------------------
-(defglobal ?*turno* = CPU);turno actual
+;(defglobal ?*turno* = CPU);turno actual
 (defglobal ?*tamanioTablero* = 0)
 ;(defglobal ?*dadoParaInicio* = 0)
+;para el empate por piezas deberia tener el total de piezas de cada uno
 
 ;------------------------PLANTILLAS-----------------------------
 ;plantilla para tablero (hecho no ordenado)
@@ -132,12 +133,12 @@
         (bind $?fi (create$ 0 0 0 0 0 0 0 0  1 1 1 1 1 1 1 1  1 1 1 1 1 1 1 1  0 0 0 0 0 0 0 0  0 0 0 0 0 0 0 0  -1 -1 -1 -1 -1 -1 -1 -1  -1 -1 -1 -1 -1 -1 -1 -1  0 0 0 0 0 0 0 0))
         )
     ))))
-
-
     
     (printout t crlf)
     (printout t "Quien empieza? (CPU/Usuario):" crlf)
-    (bind ?*turno* (read))
+    ;(bind ?*turno* (read))
+    ;bind ?tur (read))
+    (assert (turno (read)))
 
     (printout t "De que color va a ser el usuario (blanco/negro):")
     (bind ?colorUsuario (read))
@@ -158,15 +159,15 @@
 (deffunction moverCPU (?c ?fo ?co ?fd ?cd $?fi)
     (printout t "(" ?fo "," ?co ")" "->" "(" ?fd "," ?cd ")" crlf)
     ;aca es donde no entra
-    (printout t "antes del condicional CPU" crlf)
-    (if (eq ?*turno* CPU) then
-        (printout t "dentro del condicional cpu" crlf)
-        (printout t "turno CPU" crlf)
+    ;(printout t "antes del condicional CPU" crlf)
+    ;(if (eq ?*turno* CPU) then
+        ;(printout t "dentro del condicional cpu" crlf)
+        ;(printout t "turno CPU" crlf)
         (if (eq ?c negro) then
-            (printout t "ficha 1" crlf)
+            ;(printout t "ficha 1" crlf)
             (bind ?ficha 1)
         else
-            (printout t "ficha -1" crlf)
+            ;(printout t "ficha -1" crlf)
             (bind ?ficha -1)
         )
     
@@ -178,7 +179,7 @@
 
     ;si la ficha es blanca
     (if (eq ?ficha -1) then
-            (printout t "Entrada condicional moverCPU" crlf)
+            ;(printout t "Entrada condicional moverCPU" crlf)
             ; si -1 eq nth ((tamanioTablero*(fo-1))+co) en fichas
             (if (eq -1 (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi)) then
                             ;replace variableMulticampo inicio fin nuevoValor
@@ -191,19 +192,19 @@
 
             else
                 (if (eq -10 (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi)) then
-                    (printout t "Entrada condicional if else moverCPU" crlf)
+                    ;(printout t "Entrada condicional if else moverCPU" crlf)
                     (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fo 1)) ?co)(+ (* ?*tamanioTablero* (- ?fo 1)) ?co) 0))
                     (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd)(+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) -10))
                 )
             )
         else
-            (printout t "Entrada condicional else moverCPU" crlf)
+            ;(printout t "Entrada condicional else moverCPU" crlf)
             (if (eq 1 (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi)) then
-                (printout t "Entrada condicional else if moverCPU" crlf)
+                ;(printout t "Entrada condicional else if moverCPU" crlf)
                 (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fo 1)) ?co)   (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) 0))
                 (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd)  (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) 1))
             else
-                (printout t "Entrada condicional else else moverCPU" crlf)
+                ;(printout t "Entrada condicional else else moverCPU" crlf)
                 (if (eq 10 (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi)) then
                     (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fo 1)) ?co)   (+ (* ?*tamanioTablero* (- ?fo 1)) ?co)  0))
                     (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd)   (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd)  10))
@@ -212,45 +213,45 @@
         )
         (printout t $?fi crlf)
         (return $?fi)
-        )
+        ;)
     )
 
 (deffunction moverUsuario (?c ?fo ?co ?fd ?cd $?fi)
     (printout t "(" ?fo "," ?co ")" "->" "(" ?fd "," ?cd ")" crlf)
-    (printout t "antes del condicional Usuario" crlf)
-    (if (eq ?*turno* Usuario) then
-        (printout t "dentro del condicional Usuario" crlf)
-        (printout t "turno Usuario" crlf)
+    ;(printout t "antes del condicional Usuario" crlf)
+    ;(if (eq ?*turno* Usuario) then
+        ;(printout t "dentro del condicional Usuario" crlf)
+        ;(printout t "turno Usuario" crlf)
         (if (eq ?c negro) then
-            (printout t "ficha 1" crlf)
+            ;(printout t "ficha 1" crlf)
             (bind ?ficha 1)
         else
-            (printout t "ficha -1" crlf)
+            ;(printout t "ficha -1" crlf)
             (bind ?ficha -1)
         )
 
         
         (if (eq ?ficha -1) then
-            (printout t "Entrada condicional moverUsuario" crlf)
+            ;(printout t "Entrada condicional moverUsuario" crlf)
             (if (eq -1 (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi)) then
-                (printout t "Entrada condicional if if moverUsuario" crlf)
+                ;(printout t "Entrada condicional if if moverUsuario" crlf)
                 (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) 0))
                 (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) -1))
             else
                 (if (eq -10 (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi)) then
-                    (printout t "Entrada condicional if else moverUsuario" crlf)
+                    ;(printout t "Entrada condicional if else moverUsuario" crlf)
                     (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) 0))
                     (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) -10))
                 )
             )
         else
             (if (eq 1 (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi)) then
-                (printout t "Entrada condicional else if moverUsuario" crlf)
+                ;(printout t "Entrada condicional else if moverUsuario" crlf)
                 (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) 0))
                 (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) 1))
             else
                 (if (eq 10 (nth$ (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) $?fi)) then
-                    (printout t "Entrada condicional else else moverUsuario" crlf)
+                    ;(printout t "Entrada condicional else else moverUsuario" crlf)
                     (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) (+ (* ?*tamanioTablero* (- ?fo 1)) ?co) 0))
                     (bind $?fi (replace$ $?fi (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) (+ (* ?*tamanioTablero* (- ?fd 1)) ?cd) 10))
                 )
@@ -258,55 +259,80 @@
         )
         (printout t $?fi crlf)
         (return $?fi)
-        )
+        
+        ;else(
+        ;    (if(eq ?*turno* Usuario) then
+                ;moverCPU
+        ;    )
+        ;)
+        ;)
 )
 
 (defrule movimientoCPU
     ?t<-(tablero (fichas $?fi)(colorCPU ?c))
-    (test (eq ?*turno* CPU))
+    ;test se usa para evaluar las expresiones de la parte izquierda de una regla
+    ;(test (eq ?*turno* CPU))
+    ?tur<-(turno CPU)
     =>
     ;movimiento IA (arbol)
-    (printout t "Turno CPU con color " ?c crlf)
-    (printout t "Inserte fila origen: " crlf)
-    (bind ?fo (read))
-    (printout t "Inserte columna origen: " crlf)
-    (bind ?co (read))
-    (printout t "Inserte fila destino: " crlf)
-    (bind ?fd (read))
-    (printout t "Inserte columna destino: " crlf)
-    (bind ?cd (read))
-   ;;;;;;
-    (printout t "MCPU" crlf)
-    ;(printout t "(" ?fo "," ?co ")" "->" "(" ?fd "," ?cd ")" crlf)
+    ;(if (eq ?*turno* CPU) then
+        ;(printout t "Movimiento CPU " ?*turno* crlf)
 
-    (bind $?fi (moverCPU ?c ?fo ?co ?fd ?cd $?fi))
-    (modify ?t (fichas $?fi))
+        (printout t "Turno CPU con color " ?c crlf)
+        (printout t "Inserte fila origen: " crlf)
+        (bind ?fo (read))
+        (printout t "Inserte columna origen: " crlf)
+        (bind ?co (read))
+        (printout t "Inserte fila destino: " crlf)
+        (bind ?fd (read))
+        (printout t "Inserte columna destino: " crlf)
+        (bind ?cd (read))
+        ;;;;;;
+        ;(printout t "MCPU" crlf)
+        ;(printout t "(" ?fo "," ?co ")" "->" "(" ?fd "," ?cd ")" crlf)
 
-    (bind ?*turno* Usuario)
-    (imprimir $?fi)
+        (bind $?fi (moverCPU ?c ?fo ?co ?fd ?cd $?fi))
+        (modify ?t (fichas $?fi))
+
+        (retract ?tur)
+        (assert (turno Usuario))
+        ;(bind ?*turno* Usuario)
+        (imprimir $?fi)
+        ;(printout t "Movimiento CPU parte final" crlf)    
+    
 )
 
 (defrule movimientoUsuario
     ?t<-(tablero (fichas $?fi)(colorUsuario ?c))
-    (test (eq ?*turno* Usuario))
+    ;test se usa para evaluar las expresiones de la parte izquierda de una regla
+    ;(test (eq ?*turno* Usuario))
+    ?tur<-(turno Usuario)
     =>
-    (printout t "Turno Usuario con color " ?c crlf)
-    (printout t "Inserte fila origen: " crlf)
-    (bind ?fo (read))
-    (printout t "Inserte columna origen: " crlf)
-    (bind ?co (read))
-    (printout t "Inserte fila destino: " crlf)
-    (bind ?fd (read))
-    (printout t "Inserte columna destino: " crlf)
-    (bind ?cd (read))
-    ;;;;;;
-    (printout t "MU" crlf)
-    ;(printout t "(" ?fo "," ?co ")" "->" "(" ?fd "," ?cd ")" crlf)
+    ;(if (eq ?*turno* Usuario) then
+        ;(printout t "Movimiento usuario " ?*turno* crlf)
+        (printout t "Turno Usuario con color " ?c crlf)
+        (printout t "Inserte fila origen: " crlf)
+        (bind ?fo (read))
+        (printout t "Inserte columna origen: " crlf)
+        (bind ?co (read))
+        (printout t "Inserte fila destino: " crlf)
+        (bind ?fd (read))
+        (printout t "Inserte columna destino: " crlf)
+        (bind ?cd (read))
 
-    (bind $?fi (moverUsuario ?c ?fo ?co ?fd ?cd $?fi))
-    (modify ?t (fichas $?fi))
-    (bind ?*turno* CPU)
-    (imprimir $?fi)
+        ;(printout t "(" ?fo "," ?co ")" "->" "(" ?fd "," ?cd ")" crlf)
+
+        (bind $?fi (moverUsuario ?c ?fo ?co ?fd ?cd $?fi))
+        (printout t "tablero: " $?fi crlf)
+        (modify ?t (fichas $?fi))
+        ;(bind ?*turno* CPU)
+        (imprimir $?fi)
+        ;(printout t ?*turno* crlf)
+        (retract ?tur)
+        (assert (turno CPU))
+
+    
+    
 )
 
 (defrule inicio
